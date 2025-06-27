@@ -11,7 +11,7 @@ export function getTasks() {
 // Agrega una tarea nueva y la guarda en localStorage
 export function addTask(task) {
   const tasks = getTasks();
-  tasks.push(task);
+  tasks.push({ texto, completada: false }); // Estado agregado
   localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
 }
 
