@@ -1,0 +1,28 @@
+{
+  "products": [
+    {
+      "id": "1",
+      "name": "Mouse inalámbrico",
+      "price": 1200,
+      "description": "Mouse óptico con conexión Bluetooth"
+    },
+    {
+      "id": "2",
+      "name": "Teclado mecánico",
+      "price": 3500,
+      "description": "Teclado con switches azules y retroiluminación"
+    },
+    {
+      "id": "3",
+      "name": "Monitor 24 pulgadas",
+      "price": 15000,
+      "description": "Monitor Full HD con panel IPS"
+    },
+    {
+      "id": "f9c5",
+      "name": "dadwadwa",
+      "price": 124541,
+      "description": "adawdaw"
+    }
+  ]
+}
