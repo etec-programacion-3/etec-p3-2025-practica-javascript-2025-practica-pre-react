@@ -1,5 +1,5 @@
 // URL base de la API de productos
-const BASE_URL = 'http://localhost:5000/api/products';
+const BASE_URL = 'http://localhost:5000/products';
 
 // Referencias a los elementos del DOM
 const list = document.getElementById('product-list');
@@ -34,19 +34,43 @@ async function fetchProducts() {
 // EJERCICIO 1: Crear producto
 // Completa esta función para enviar los datos del formulario usando axios POST
 async function createProduct(name, price, description) {
-  // Tu código aquí
+  try {
+    // Envía los datos como objeto a la API usando POST
+    await axios.post('http://localhost:5000/products', {
+      name,
+      price: Number(price), // Convierte el precio a número
+      description
+    });
+  } catch (error) {
+    alert('Error al crear el producto');
+  }
 }
 
 // EJERCICIO 2: Eliminar producto
 // Completa esta función para eliminar un producto usando axios DELETE
 async function deleteProduct(id) {
-  // Tu código aquí
+  try {
+    await axios.delete(`http://localhost:5000/products/${id}`);
+    fetchProducts(); // Recarga la lista después de eliminar
+  } catch (error) {
+    alert('Error al eliminar el producto');
+  }
 }
 
 // EJERCICIO 3: Ver detalles de producto
 // Completa esta función para mostrar detalles usando axios GET /products/:id
 async function showDetails(id) {
-  // Tu código aquí
+  try {
+    // Obtiene los detalles del producto por su id
+    const res = await axios.get(`http://localhost:5000/products/${id}`);
+    const prod = res.data;
+    // Muestra los detalles en un alert (puedes mejorarlo en el DOM si quieres)
+    alert(
+      `Nombre: ${prod.name}\nPrecio: $${prod.price}\nDescripción: ${prod.description}`
+    );
+  } catch (error) {
+    alert('Error al obtener detalles del producto');
+  }
 }
 
 // Maneja el submit del formulario para crear un producto
