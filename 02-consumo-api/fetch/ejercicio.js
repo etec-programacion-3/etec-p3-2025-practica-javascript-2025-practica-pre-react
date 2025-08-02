@@ -1,5 +1,5 @@
 // URL base de la API de productos
-const BASE_URL = 'http://localhost:5000/api/products';
+const BASE_URL = 'http://localhost:5500/api/products';
 
 // Referencias a los elementos del DOM
 const list = document.getElementById('product-list');
@@ -78,5 +78,12 @@ form.onsubmit = async e => {
   form.reset();
 };
 
+
 // Render inicial
 fetchProducts(); 
+// Llama a fetchProducts para cargar los productos al inicio
+document.addEventListener('DOMContentLoaded', fetchProducts); // Asegura que se carguen al inicio
+// Asegura que se carguen al inicio
+document.addEventListener('DOMContentLoaded', () => {
+  fetchProducts();
+});
