@@ -1,19 +1,44 @@
-// Importa las funciones del módulo de tareas
-import { getTasks, addTask, removeTask } from './tareas.js';
+import { getTasks, addTask, removeTask, editTask, toggleTaskCompleted } from './tareas.js';
 
-// Referencias a los elementos del DOM
 const form = document.getElementById('task-form');
 const input = document.getElementById('task-input');
 const list = document.getElementById('task-list');
 
-// Renderiza la lista de tareas en el DOM
 function renderTasks() {
   list.innerHTML = '';
   getTasks().forEach((task, idx) => {
     const li = document.createElement('li');
-    li.textContent = task;
-    // TODO: Agrega aquí el botón y la lógica para editar la tarea
-    // TODO: Agrega aquí la lógica para filtrar tareas completadas/pendientes
+
+    // Checkbox para marcar completada/pendiente
+    const checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    checkbox.checked = task.completed;
+    checkbox.onchange = () => {
+      toggleTaskCompleted(idx);
+      renderTasks();
+    };
+    li.appendChild(checkbox);
+
+    // Texto de la tarea
+    const span = document.createElement('span');
+    span.textContent = task.text;
+    if (task.completed) {
+      span.style.textDecoration = 'line-through';
+    }
+    li.appendChild(span);
+
+    // Botón para editar la tarea
+    const editBtn = document.createElement('button');
+    editBtn.textContent = 'Editar';
+    editBtn.onclick = () => {
+      const nuevoTexto = prompt('Edita la tarea:', task.text);
+      if (nuevoTexto !== null && nuevoTexto.trim() !== '') {
+        editTask(idx, nuevoTexto);
+        renderTasks();
+      }
+    };
+    li.appendChild(editBtn);
+
     // Botón para eliminar la tarea
     const btn = document.createElement('button');
     btn.textContent = 'Eliminar';
@@ -22,11 +47,11 @@ function renderTasks() {
       renderTasks();
     };
     li.appendChild(btn);
+
     list.appendChild(li);
   });
 }
 
-// Maneja el evento submit del formulario para agregar una tarea
 form.onsubmit = e => {
   e.preventDefault();
   addTask(input.value);
@@ -34,5 +59,4 @@ form.onsubmit = e => {
   renderTasks();
 };
 
-// Render inicial de las tareas
-renderTasks(); 
+renderTasks();
