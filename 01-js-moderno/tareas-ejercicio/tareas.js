@@ -9,9 +9,9 @@ export function getTasks() {
 }
 
 // Agrega una tarea nueva y la guarda en localStorage
-export function addTask(task) {
+export function addTask(taskText) {
   const tasks = getTasks();
-  tasks.push(task);
+  tasks.push({text: taskText, completed: false});
   localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
 }
 
@@ -21,3 +21,21 @@ export function removeTask(index) {
   tasks.splice(index, 1);
   localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
 } 
+
+// Edita el texto de una tarea
+export function editTask(index, newText) {
+  const tasks = getTasks();
+  if (tasks[index]) {
+    tasks[index].text = newText;
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
+  }
+}
+
+// Cambia el estado de completado de una tarea
+export function toggleTaskCompleted(index) {
+  const tasks = getTasks();
+  if (tasks[index]) {
+    tasks[index].completed = !tasks[index].completed;
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
+  }
+}
