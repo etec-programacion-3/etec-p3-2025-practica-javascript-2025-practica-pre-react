@@ -10,15 +10,26 @@ export class TaskModel {
     return [...this.tasks];
   }
 
-  // Agrega una nueva tarea y guarda el estado
+  // Agrega una nueva tarea y guarda el estado y una validacion de 30 caracteres
   addTask(task) {
-    this.tasks.push(task);
-    this._commit();
+    if (task.length > 30) {
+      throw new Error("La tarea no puede tener más de 30 caracteres");
+    }else{
+      this.tasks.push(task);
+      this._commit();
+    }
+    
   }
 
   // Elimina una tarea por índice y guarda el estado
   removeTask(index) {
     this.tasks.splice(index, 1);
+    this._commit();
+  }
+
+    // Nuevo método para editar una tarea
+  editTask(index, newTask) {
+    this.tasks[index] = newTask;
     this._commit();
   }
 

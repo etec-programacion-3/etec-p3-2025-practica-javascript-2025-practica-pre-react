@@ -31,18 +31,46 @@ async function fetchProducts() {
 // Completa esta función para enviar los datos del formulario usando fetch POST
 async function createProduct(name, price, description) {
   // Tu código aquí
+  const product = { name, price, description };
+  try{
+    const res = await fetch(BASE_URL, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(product)
+    });
+  }
+  catch (error) {
+    throw new Error('Error al crear el producto');
+  }
 }
 
 // EJERCICIO 2: Eliminar producto
 // Completa esta función para eliminar un producto usando fetch DELETE
 async function deleteProduct(id) {
   // Tu código aquí
+  try {
+    const res = await fetch(`${BASE_URL}/${id}`, {
+      method: 'DELETE'
+    });
+  }
+  catch (error) {
+    throw new Error('Error al eliminar el producto');
+  }
 }
 
 // EJERCICIO 3: Ver detalles de producto
 // Completa esta función para mostrar detalles usando fetch GET /products/:id
 async function showDetails(id) {
   // Tu código aquí
+  try {
+    const res = await fetch(`${BASE_URL}/${id}`);
+    const product = await res.json();
+  alert(`Detalles del producto:\nNombre: ${product.name}\nPrecio: $${product.price}\nDescripción: ${product.description}`);
+  }
+  catch (error) {
+    throw new Error('Error al obtener los detalles del producto');
+  }
+  // Aquí podrías mostrar los detalles en un modal o sección específica
 }
 
 // Maneja el submit del formulario para crear un producto
@@ -58,4 +86,4 @@ form.onsubmit = async e => {
 };
 
 // Llama a la función para mostrar los productos al cargar la página
-fetchProducts(); 
+fetchProducts();

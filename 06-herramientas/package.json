@@ -5,11 +5,15 @@
   "scripts": {
     "dev": "vite",
     "lint": "eslint src --ext .js",
-    "format": "prettier --write src"
+    "format": "prettier --write src",
+    "format:list": "prettier --write --list-different ." 
   },
   "devDependencies": {
     "eslint": "^8.0.0",
-    "prettier": "^3.0.0",
+    "prettier": "^3.6.2",
     "vite": "^5.0.0"
+  },
+  "dependencies": {
+    "dayjs": "^1.11.13"
   }
-} 
+}
